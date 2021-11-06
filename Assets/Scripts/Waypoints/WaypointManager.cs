@@ -27,7 +27,8 @@ public static class WaypointManager {
 				GoDefault();
 			}
 			goingWP = "";
-		}
+		} else
+			GoDefault();
 	}
 
 	private static void SceneChanging(Scene current, Scene next){
