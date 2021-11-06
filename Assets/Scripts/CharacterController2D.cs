@@ -25,7 +25,7 @@ public class CharacterController2D : MonoBehaviour
     Rigidbody2D rigidBody;
 
     bool IsGrounded() {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, GetComponent<CircleCollider2D>().radius + .2f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, (GetComponent<BoxCollider2D>().size.y / 2) + .2f);
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			if (colliders[i].gameObject != gameObject)
@@ -39,14 +39,6 @@ public class CharacterController2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hasDKey = false;
-        hasAKey = false;
-        hasWKey = false;
-        hasSKey = false;
-        hasRKey = false;
-        hasGKey = false;
-        hasBKey = false;
-        hasMKey = false;
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -63,6 +55,15 @@ public class CharacterController2D : MonoBehaviour
         
         if (Input.GetKey("w") && hasWKey && IsGrounded()) {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
+        }
+        if (Input.GetKey("s") && hasSKey) {
+            GetComponent<SpriteRenderer>().size = new Vector2(1.0f, 0.5f);
+            GetComponent<BoxCollider2D>().size = new Vector2(1.0f, 0.5f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(0.0f, -0.25f);
+        } else {
+            GetComponent<SpriteRenderer>().size = new Vector2(1.0f, 1.0f);
+            GetComponent<BoxCollider2D>().size = new Vector2(1.0f, 1.0f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(0.0f, 0.0f);
         }
         isCrouching = (Input.GetKey("s") && hasSKey);
         Debug.Log(IsGrounded());
