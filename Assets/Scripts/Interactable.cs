@@ -5,7 +5,8 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
 
-
+	[SerializeField]
+	float yOffset;
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		
