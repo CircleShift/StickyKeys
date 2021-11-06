@@ -20,17 +20,18 @@ public static class WaypointManager {
 		if(!initialized) {
 			SceneManager.activeSceneChanged += SceneChanging;
 			SceneManager.sceneLoaded += SceneLoaded;
+			initialized = true;
 		}
-		initialized = true;
 	}
 
 	private static void SceneChanging(Scene current, Scene next){
-
+		SoftReset();
 	}
 
 	private static void SceneLoaded(Scene loaded, LoadSceneMode next){
-		if(goingWP != "" && intermediate != null) {
-			
+		if(goingWP != "" && intermediate != null && player != null) {
+			intermediate.GoToWaypoint(player);
+			GoWaypoint(goingWP);
 		}
 	}
 
@@ -45,10 +46,14 @@ public static class WaypointManager {
 		return currentWaypoints.Remove(w);
 	}
 
-	public static void Reset() {
+	public static void SoftReset() {
 		currentWaypoints = new List<Waypoint>(0);
 		intermediate = null;
 		player = null;
+	}
+
+	public static void HardReset() {
+		SoftReset();
 		goingWP = "";
 	}
 
@@ -69,6 +74,10 @@ public static class WaypointManager {
 
 	public static void SetIntermediate(Waypoint w) {
 		intermediate = w;
+	}
+
+	public static void SetPlayer(CharacterController2D c) {
+		player = c;
 	}
 
 	/*
@@ -92,13 +101,32 @@ public static class WaypointManager {
 	*/
 	public static void GoWaypoint(string scene, string name) {
 		goingWP = name;
-		SceneManager.LoadScene(scene, LoadSceneMode.Single);
+		if(SceneManager.GetActiveScene().name == scene)
+			GoWaypoint(name);
+		else
+			SceneManager.LoadScene(scene, LoadSceneMode.Single);
 	}
 
 	/** Go to a waypoint in the current scene only
 		name - name of the waypoint
 	*/
-	public static void GoWaypoint(string name) {
-		GetWaypoint(name);
+	public static bool GoWaypoint(string name) {
+		Waypoint going = GetWaypoint(name);
+		if(going != null) {
+			going.GoToWaypoint(player);
+			return true;
+		}
+		return false;
+	}
+
+	/** Go to the last checkpoint (if available)
+		name - name of the waypoint
+	*/
+	public static bool GoCheckpoint() {
+		if(lastCheckpoint != null) {
+			lastCheckpoint.GoToWaypoint(player);
+			return true;
+		}
+		return false;
 	}
 }
