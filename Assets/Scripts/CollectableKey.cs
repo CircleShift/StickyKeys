@@ -14,6 +14,7 @@ public class CollectableKey : MonoBehaviour
     {
         tutorial = GameObject.Find("Canvas").GetComponent<TutorialController>();
         startY = transform.position.y;
+        transform.GetChild(0).localScale = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
     // Update is called once per frame
@@ -24,11 +25,37 @@ public class CollectableKey : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        StartCoroutine(growGlow());
         switch (KeyName) {
             case "a":
                 tutorial.toggleOn(2);
                 tutorial.toggleOff(1);
+                tutorial.toggleOff(0);
                 break;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        StartCoroutine(shrinkGlow());    
+    }
+
+    private IEnumerator growGlow() {
+        float glow_scale = 0f;
+        while (glow_scale < 1f) {
+            float smooth_scale = Mathf.SmoothStep(0f, 0.2f, glow_scale);
+            transform.GetChild(0).localScale = new Vector3(smooth_scale, smooth_scale, smooth_scale);
+            glow_scale += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private IEnumerator shrinkGlow() {
+        float glow_scale = 1f;
+        while (glow_scale > 0f) {
+            float smooth_scale = Mathf.SmoothStep(0f, 0.2f, glow_scale);
+            transform.GetChild(0).localScale = new Vector3(smooth_scale, smooth_scale, smooth_scale);
+            glow_scale -= Time.deltaTime;
+            yield return null;
         }
     }
 
