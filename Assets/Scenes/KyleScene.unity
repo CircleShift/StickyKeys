@@ -810,7 +810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3358575620192719742, guid: 113622dbfa696a9b5a969027470e2eed, type: 3}
       propertyPath: connectedWPScene
-      value: KyleScene2
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3358575620192719743, guid: 113622dbfa696a9b5a969027470e2eed, type: 3}
       propertyPath: m_Name
@@ -886,8 +886,12 @@ PrefabInstance:
       value: tele2
       objectReference: {fileID: 0}
     - target: {fileID: 3358575620192719742, guid: 113622dbfa696a9b5a969027470e2eed, type: 3}
+      propertyPath: defaultWaypoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358575620192719742, guid: 113622dbfa696a9b5a969027470e2eed, type: 3}
       propertyPath: connectedWPScene
-      value: KyleScene2
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3358575620192719743, guid: 113622dbfa696a9b5a969027470e2eed, type: 3}
       propertyPath: m_Name

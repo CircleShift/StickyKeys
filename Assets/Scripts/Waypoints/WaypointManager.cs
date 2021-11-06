@@ -22,19 +22,12 @@ public static class WaypointManager {
 			initialized = true;
 		}
 
-		Debug.Log("scene loaded");
 		if(goingWP != "" && player != null) {
-			Debug.Log("attempting to teleport");
 			if(!GoWaypoint(goingWP)) {
-				Debug.Log("Could not go to " + goingWP);
-				GoDefault();
+				
 			}
-		} else {
-			if (goingWP == "")
-				Debug.Log("No go point");
-			else
-				Debug.Log("No player");
-		}
+		} else if (goingWP == "")
+			GoDefault();
 
 		goingWP = "";
 	}
