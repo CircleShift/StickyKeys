@@ -22,9 +22,9 @@ public static class WaypointManager {
 			initialized = true;
 		}
 
-		if(goingWP != "" && player != null) {
+		if(goingWP != "") {
 			if(!GoWaypoint(goingWP)) {
-				
+				GoDefault();
 			}
 		} else if (goingWP == "")
 			GoDefault();
