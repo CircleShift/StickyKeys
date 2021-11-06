@@ -75,6 +75,7 @@ public class CharacterController2D : MonoBehaviour
         
         if (Input.GetKey("w") && hasWKey && IsGrounded()) {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
+            GetComponent<AudioSource>().Play();
         }
         if (Input.GetKey("s") && hasSKey) {
             GetComponent<SpriteRenderer>().size = new Vector2(1.0f, 0.5f);
@@ -166,5 +167,10 @@ public class CharacterController2D : MonoBehaviour
         if (other.gameObject.GetComponent<CollectableKey>() != null) {
             Debug.Log("Key");
         }
+    }
+
+    public void onDamaged() {
+        //teleport back to the last checkpoint
+        WaypointManager.GoCheckpoint();
     }
 }

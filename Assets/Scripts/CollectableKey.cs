@@ -7,6 +7,7 @@ public class CollectableKey : MonoBehaviour
     private float startY;
     public string KeyName;
     private bool enterPressed;
+    private bool isFade;
 
     private TutorialController tutorial;
     // Start is called before the first frame update
@@ -15,12 +16,15 @@ public class CollectableKey : MonoBehaviour
         tutorial = GameObject.Find("Canvas").GetComponent<TutorialController>();
         startY = transform.position.y;
         transform.GetChild(0).localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        isFade = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector2(transform.position.x, startY + (Mathf.Sin(Time.frameCount / 300.0f) / 10.0f));
+        if (!isFade) {
+            transform.position = new Vector2(transform.position.x, startY + (Mathf.Sin(Time.frameCount / 300.0f) / 10.0f));
+        }
         enterPressed = Input.GetKey(KeyCode.Return);
     }
 
@@ -42,9 +46,9 @@ public class CollectableKey : MonoBehaviour
     private IEnumerator growGlow() {
         float glow_scale = 0f;
         while (glow_scale < 1f) {
-            float smooth_scale = Mathf.SmoothStep(0f, 0.2f, glow_scale);
+            float smooth_scale = Mathf.SmoothStep(0.1f, 0.2f, glow_scale);
             transform.GetChild(0).localScale = new Vector3(smooth_scale, smooth_scale, smooth_scale);
-            glow_scale += Time.deltaTime;
+            glow_scale += Time.deltaTime * 2;
             yield return null;
         }
     }
@@ -52,11 +56,27 @@ public class CollectableKey : MonoBehaviour
     private IEnumerator shrinkGlow() {
         float glow_scale = 1f;
         while (glow_scale > 0f) {
-            float smooth_scale = Mathf.SmoothStep(0f, 0.2f, glow_scale);
-            transform.GetChild(0).localScale = new Vector3(smooth_scale, smooth_scale, smooth_scale);
-            glow_scale -= Time.deltaTime;
+            float smooth_scale = Mathf.SmoothStep(0.1f, 0.2f, glow_scale);
+            if (transform.GetChild(0) != null) {
+                transform.GetChild(0).localScale = new Vector3(smooth_scale, smooth_scale, smooth_scale);
+            }
+            glow_scale -= Time.deltaTime * 2;
             yield return null;
         }
+    }
+
+    public IEnumerator FadeOut(float t)
+    {
+        Color currentColor = GetComponent<SpriteRenderer>().color;
+        GetComponent<SpriteRenderer>().color = new Color(currentColor.r, currentColor.g, currentColor.b, 1);
+        while (currentColor.a > 0.0f)
+        {
+            currentColor = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a - (Time.deltaTime / t));
+            GetComponent<SpriteRenderer>().color = currentColor;
+            transform.Translate(0, Time.deltaTime * 0.1f, 0);
+            yield return null;
+        }
+        Destroy(this.gameObject, 1.0f);
     }
 
     private void OnTriggerStay2D(Collider2D other) {
@@ -82,7 +102,11 @@ public class CollectableKey : MonoBehaviour
                     player_controller.hasBKey = true;
                     break;
             }
-            Destroy(this.gameObject);
+            Destroy(this.GetComponent<BoxCollider2D>());
+            Destroy(transform.GetChild(0).gameObject);
+            GetComponent<AudioSource>().Play();
+            StopAllCoroutines();
+            StartCoroutine(FadeOut(0.75f));
         }
     }
 }
