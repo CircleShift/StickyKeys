@@ -28,6 +28,7 @@ public class CollectableKey : MonoBehaviour
             case "a":
                 tutorial.toggleOn(2);
                 tutorial.toggleOff(1);
+                tutorial.toggleOff(0);
                 break;
         }
     }
