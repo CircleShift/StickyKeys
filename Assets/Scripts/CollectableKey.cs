@@ -98,6 +98,9 @@ public class CollectableKey : MonoBehaviour
                     tutorial.toggleOff(0);
                     tutorial.toggleOn(1);
                     break;
+                case "b":
+                    player_controller.hasBKey = true;
+                    break;
             }
             Destroy(this.GetComponent<BoxCollider2D>());
             Destroy(transform.GetChild(0).gameObject);
