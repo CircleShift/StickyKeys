@@ -18,6 +18,10 @@ public class CharacterController2D : MonoBehaviour
     // Map key
     public bool hasMKey;
 
+    public bool isBlue;
+    public bool isGreen;
+    public bool isRed;
+
     public float jumpForce = 10.0f;
     public float speed = 5.0f;
     private bool isGrounded;
@@ -25,6 +29,10 @@ public class CharacterController2D : MonoBehaviour
     Rigidbody2D rigidBody;
     Vector2 startSize;
     Vector2 startOffset;
+
+    private GameObject[] blueBoxes;
+    private GameObject[] greenBoxes;
+    private GameObject[] redBoxes;
 
     bool IsGrounded() {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, (GetComponent<BoxCollider2D>().size.y / 2) + .2f);
@@ -45,7 +53,11 @@ public class CharacterController2D : MonoBehaviour
         startSize = GetComponent<BoxCollider2D>().size;
         startOffset = GetComponent<BoxCollider2D>().offset;
 
-		WaypointManager.Init();
+        blueBoxes = GameObject.FindGameObjectsWithTag("Blue");
+        greenBoxes = GameObject.FindGameObjectsWithTag("Green");
+        redBoxes = GameObject.FindGameObjectsWithTag("Red");
+
+        WaypointManager.Init();
 		WaypointManager.SetPlayer(this);
     }
 
@@ -75,6 +87,80 @@ public class CharacterController2D : MonoBehaviour
             GetComponent<BoxCollider2D>().offset = startOffset;
         }
         isCrouching = (Input.GetKey("s") && hasSKey);
+        ChangeColor();
+        CheckRGBBoxes();
+    }
+
+    public void ChangeColor()
+    {
+        if (hasBKey && Input.GetKeyDown(KeyCode.B))
+        {
+            isBlue = !isBlue;
+        }
+        if (hasGKey && Input.GetKeyDown(KeyCode.G))
+        {
+            isGreen = !isGreen;
+        }
+        if (hasRKey && Input.GetKeyDown(KeyCode.R))
+        {
+            isRed = !isRed;
+        }
+    }
+
+    private void CheckRGBBoxes()
+    {
+        if (blueBoxes != null)
+        {
+             if (isBlue)
+                    {
+                        foreach(GameObject box in blueBoxes)
+                        {
+                            box.GetComponent<BoxCollider2D>().enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        foreach (GameObject box in blueBoxes)
+                        {
+                            box.GetComponent<BoxCollider2D>().enabled = true;
+                        }
+                    }
+        }
+        if (greenBoxes != null)
+        {
+            if (isGreen)
+            {
+                foreach (GameObject box in greenBoxes)
+                {
+                    box.GetComponent<BoxCollider2D>().enabled = false;
+                }
+            }
+            else
+            {
+                foreach (GameObject box in greenBoxes)
+                {
+                    box.GetComponent<BoxCollider2D>().enabled = true;
+                }
+            }
+        }
+        if (redBoxes != null)
+        {
+            if (isBlue)
+            {
+                foreach (GameObject box in redBoxes)
+                {
+                    box.GetComponent<BoxCollider2D>().enabled = false;
+                }
+            }
+            else
+            {
+                foreach (GameObject box in redBoxes)
+                {
+                    box.GetComponent<BoxCollider2D>().enabled = true;
+                }
+            }
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
