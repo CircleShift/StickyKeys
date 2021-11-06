@@ -14,6 +14,9 @@ public class DustBunnyScript : MonoBehaviour
 
     public LayerMask detectWhat;
 
+    public Transform weakspot;
+    public GameObject DeathParticle;
+
     public bool colliding;
     void Start()
     {
@@ -33,5 +36,24 @@ public class DustBunnyScript : MonoBehaviour
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y * 1);
             Xvelocity *= -1;
         } 
+    }
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Player")
+        {
+            float height = coll.contacts[0].point.y - weakspot.position.y;
+
+            if (height > 0)
+            {
+                Die();
+                coll.rigidbody.AddForce(new Vector2(0, 300));
+            }
+        }
+    }
+    void Die()
+    {
+        //transform.localScale = Vector2.Lerp(transform.localScale, transform.localScale * 0.2f, Time.deltaTime * 1f);
+        Instantiate(DeathParticle, transform.position, Quaternion.identity);
+        Destroy(this.gameObject, 0.1f);
     }
 }
