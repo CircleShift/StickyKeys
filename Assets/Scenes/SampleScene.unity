@@ -473,9 +473,9 @@ MonoBehaviour:
   hasWKey: 0
   hasSKey: 0
   hasSpacebar: 0
-  hasRKey: 0
-  hasGKey: 0
-  hasBKey: 0
+  hasRKey: 1
+  hasGKey: 1
+  hasBKey: 1
   hasMKey: 0
   jumpForce: 10
   speed: 10
