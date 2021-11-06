@@ -19,23 +19,29 @@ public static class WaypointManager {
 	public static void Init() {
 		if(!initialized) {
 			SceneManager.activeSceneChanged += SceneChanging;
-			SceneManager.sceneLoaded += SceneLoaded;
 			initialized = true;
 		}
-	}
 
-	private static void SceneChanging(Scene current, Scene next){
-		SoftReset();
-	}
-
-	private static void SceneLoaded(Scene loaded, LoadSceneMode next){
+		Debug.Log("scene loaded");
 		if(goingWP != "" && player != null) {
+			Debug.Log("attempting to teleport");
 			if(!GoWaypoint(goingWP)) {
+				Debug.Log("Could not go to " + goingWP);
 				GoDefault();
 			}
+		} else {
+			if (goingWP == "")
+				Debug.Log("No go point");
+			else
+				Debug.Log("No player");
 		}
 
 		goingWP = "";
+	}
+
+	private static void SceneChanging(Scene current, Scene next){
+		Debug.Log("soft reset, scene changing");
+		SoftReset();
 	}
 
 	/*
@@ -51,6 +57,8 @@ public static class WaypointManager {
 
 	public static void SoftReset() {
 		currentWaypoints = new List<Waypoint>(0);
+		lastCheckpoint = null;
+		defaultWaypoint = null;
 		player = null;
 	}
 
@@ -102,11 +110,12 @@ public static class WaypointManager {
 		name - name of the waypoint
 	*/
 	public static void GoWaypoint(string scene, string name) {
-		goingWP = name;
-		if(SceneManager.GetActiveScene().name == scene)
+		if(SceneManager.GetActiveScene().name == scene || scene == "")
 			GoWaypoint(name);
-		else
+		else {
+			goingWP = name;
 			SceneManager.LoadScene(scene, LoadSceneMode.Single);
+		}
 	}
 
 	/** Go to a waypoint in the current scene only

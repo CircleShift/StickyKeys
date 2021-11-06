@@ -5,7 +5,7 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
 	[SerializeField]
-	bool door;
+	bool teleporter;
 	[SerializeField]
 	bool checkpoint;
 	[SerializeField]
@@ -16,6 +16,8 @@ public class Waypoint : MonoBehaviour
 	string connectedWPScene;
 	[SerializeField]
 	string connectedWPName;
+
+	bool teleporting;
 
 
     // Start is called before the first frame update
@@ -32,14 +34,24 @@ public class Waypoint : MonoBehaviour
 	}
 
 	public void GoToWaypoint(CharacterController2D c) {
+		teleporting = true;
 		c.gameObject.transform.position = this.gameObject.transform.position;
 		if(checkpoint)
 			WaypointManager.SetLastCheckpoint(this);
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if(other.gameObject.tag == "Player" && checkpoint) {
-			WaypointManager.SetLastCheckpoint(this);
-		}
+		if(other.gameObject.tag == "Player" && !teleporting){
+			if (checkpoint)
+				WaypointManager.SetLastCheckpoint(this);
+			else if (teleporter && connectedWPScene == "")
+				WaypointManager.GoWaypoint(connectedWPName);
+			else if (teleporter)
+				WaypointManager.GoWaypoint(connectedWPScene, connectedWPName);
+		} 
+	}
+
+	private void OnTriggerExit2D(Collider2D other) {
+		teleporting = false;
 	}
 }
