@@ -83,4 +83,9 @@ public class CharacterController2D : MonoBehaviour
             Debug.Log("Key");
         }
     }
+
+    public void onDamaged() {
+        //teleport back to the last checkpoint
+        WaypointManager.GoCheckpoint();
+    }
 }
