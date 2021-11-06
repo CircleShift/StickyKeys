@@ -26,10 +26,8 @@ public static class WaypointManager {
 			if(!GoWaypoint(goingWP)) {
 				GoDefault();
 			}
-		} else if (goingWP == "")
-			GoDefault();
-
-		goingWP = "";
+			goingWP = "";
+		}
 	}
 
 	private static void SceneChanging(Scene current, Scene next){
