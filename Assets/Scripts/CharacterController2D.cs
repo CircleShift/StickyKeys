@@ -56,9 +56,8 @@ public class CharacterController2D : MonoBehaviour
         blueBoxes = GameObject.FindGameObjectsWithTag("Blue");
         greenBoxes = GameObject.FindGameObjectsWithTag("Green");
         redBoxes = GameObject.FindGameObjectsWithTag("Red");
-
-        WaypointManager.Init();
 		WaypointManager.SetPlayer(this);
+		WaypointManager.Init();
     }
 
     // Update is called once per frame

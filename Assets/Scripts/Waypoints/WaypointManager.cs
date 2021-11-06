@@ -7,7 +7,6 @@ public static class WaypointManager {
 	private static List<Waypoint> currentWaypoints = new List<Waypoint>(0);
 	private static Waypoint lastCheckpoint = null;
 	private static Waypoint defaultWaypoint = null;
-	private static Waypoint intermediate = null;
 
 	private static CharacterController2D player = null;
 
@@ -20,24 +19,22 @@ public static class WaypointManager {
 	public static void Init() {
 		if(!initialized) {
 			SceneManager.activeSceneChanged += SceneChanging;
-			SceneManager.sceneLoaded += SceneLoaded;
 			initialized = true;
 		}
-	}
 
-	private static void SceneChanging(Scene current, Scene next){
-		SoftReset();
-	}
-
-	private static void SceneLoaded(Scene loaded, LoadSceneMode next){
-		if(goingWP != "" && intermediate != null && player != null) {
-			intermediate.GoToWaypoint(player);
+		if(goingWP != "") {
 			if(!GoWaypoint(goingWP)) {
 				GoDefault();
 			}
-		}
+		} else if (goingWP == "")
+			GoDefault();
 
 		goingWP = "";
+	}
+
+	private static void SceneChanging(Scene current, Scene next){
+		Debug.Log("soft reset, scene changing");
+		SoftReset();
 	}
 
 	/*
@@ -53,7 +50,8 @@ public static class WaypointManager {
 
 	public static void SoftReset() {
 		currentWaypoints = new List<Waypoint>(0);
-		intermediate = null;
+		lastCheckpoint = null;
+		defaultWaypoint = null;
 		player = null;
 	}
 
@@ -71,14 +69,6 @@ public static class WaypointManager {
 
 	public static void SetLastCheckpoint(Waypoint w) {
 		lastCheckpoint = w;
-	}
-
-	public static Waypoint GetIntermediate() {
-		return intermediate;
-	}
-
-	public static void SetIntermediate(Waypoint w) {
-		intermediate = w;
 	}
 
 	public static Waypoint GetDefault() {
@@ -113,11 +103,12 @@ public static class WaypointManager {
 		name - name of the waypoint
 	*/
 	public static void GoWaypoint(string scene, string name) {
-		goingWP = name;
-		if(SceneManager.GetActiveScene().name == scene)
+		if(SceneManager.GetActiveScene().name == scene || scene == "")
 			GoWaypoint(name);
-		else
+		else {
+			goingWP = name;
 			SceneManager.LoadScene(scene, LoadSceneMode.Single);
+		}
 	}
 
 	/** Go to a waypoint in the current scene only
