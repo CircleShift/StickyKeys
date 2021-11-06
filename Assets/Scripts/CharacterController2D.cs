@@ -44,6 +44,9 @@ public class CharacterController2D : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         startSize = GetComponent<BoxCollider2D>().size;
         startOffset = GetComponent<BoxCollider2D>().offset;
+
+		WaypointManager.Init();
+		WaypointManager.SetPlayer(this);
     }
 
     // Update is called once per frame
