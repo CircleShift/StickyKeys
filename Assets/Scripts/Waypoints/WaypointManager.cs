@@ -33,6 +33,8 @@ public static class WaypointManager {
 			intermediate.GoToWaypoint(player);
 			GoWaypoint(goingWP);
 		}
+
+		goingWP = "";
 	}
 
 	/*
