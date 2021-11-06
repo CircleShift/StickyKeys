@@ -23,6 +23,8 @@ public class CharacterController2D : MonoBehaviour
     private bool isGrounded;
     private bool isCrouching;
     Rigidbody2D rigidBody;
+    Vector2 startSize;
+    Vector2 startOffset;
 
     bool IsGrounded() {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, (GetComponent<BoxCollider2D>().size.y / 2) + .2f);
@@ -40,6 +42,8 @@ public class CharacterController2D : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        startSize = GetComponent<BoxCollider2D>().size;
+        startOffset = GetComponent<BoxCollider2D>().offset;
     }
 
     // Update is called once per frame
@@ -47,8 +51,10 @@ public class CharacterController2D : MonoBehaviour
     {
         if (Input.GetKey("a") && hasAKey) {
             rigidBody.velocity = new Vector2(-speed, rigidBody.velocity.y);
+            GetComponent<SpriteRenderer>().flipX = false;
         } else if (Input.GetKey("d") && hasDKey) {
             rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
+            GetComponent<SpriteRenderer>().flipX = true;
         } else {
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
@@ -58,14 +64,19 @@ public class CharacterController2D : MonoBehaviour
         }
         if (Input.GetKey("s") && hasSKey) {
             GetComponent<SpriteRenderer>().size = new Vector2(1.0f, 0.5f);
-            GetComponent<BoxCollider2D>().size = new Vector2(1.0f, 0.5f);
-            GetComponent<BoxCollider2D>().offset = new Vector2(0.0f, -0.25f);
+            GetComponent<BoxCollider2D>().size = startSize * new Vector2(1.0f, 0.5f);
+            GetComponent<BoxCollider2D>().offset = startOffset - new Vector2(0.0f, startSize.y * 0.25f);
         } else {
             GetComponent<SpriteRenderer>().size = new Vector2(1.0f, 1.0f);
-            GetComponent<BoxCollider2D>().size = new Vector2(1.0f, 1.0f);
-            GetComponent<BoxCollider2D>().offset = new Vector2(0.0f, 0.0f);
+            GetComponent<BoxCollider2D>().size = startSize;
+            GetComponent<BoxCollider2D>().offset = startOffset;
         }
         isCrouching = (Input.GetKey("s") && hasSKey);
-        Debug.Log(IsGrounded());
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.GetComponent<CollectableKey>() != null) {
+            Debug.Log("Key");
+        }
     }
 }
