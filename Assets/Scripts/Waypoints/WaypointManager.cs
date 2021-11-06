@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public static class WaypointManager {
 	private static List<Waypoint> currentWaypoints = new List<Waypoint>(0);
 	private static Waypoint lastCheckpoint = null;
+	private static Waypoint defaultWaypoint = null;
 	private static Waypoint intermediate = null;
 
 	private static CharacterController2D player = null;
@@ -31,7 +32,9 @@ public static class WaypointManager {
 	private static void SceneLoaded(Scene loaded, LoadSceneMode next){
 		if(goingWP != "" && intermediate != null && player != null) {
 			intermediate.GoToWaypoint(player);
-			GoWaypoint(goingWP);
+			if(!GoWaypoint(goingWP)) {
+				GoDefault();
+			}
 		}
 
 		goingWP = "";
@@ -76,6 +79,14 @@ public static class WaypointManager {
 
 	public static void SetIntermediate(Waypoint w) {
 		intermediate = w;
+	}
+
+	public static Waypoint GetDefault() {
+		return defaultWaypoint;
+	}
+
+	public static void SetDefault(Waypoint w) {
+		defaultWaypoint = w;
 	}
 
 	public static void SetPlayer(CharacterController2D c) {
@@ -127,6 +138,17 @@ public static class WaypointManager {
 	public static bool GoCheckpoint() {
 		if(lastCheckpoint != null) {
 			lastCheckpoint.GoToWaypoint(player);
+			return true;
+		}
+		return false;
+	}
+	
+	/** Go to the default waypoint (if available)
+		name - name of the waypoint
+	*/
+	public static bool GoDefault() {
+		if(defaultWaypoint != null) {
+			defaultWaypoint.GoToWaypoint(player);
 			return true;
 		}
 		return false;

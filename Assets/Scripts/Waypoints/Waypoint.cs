@@ -11,6 +11,8 @@ public class Waypoint : MonoBehaviour
 	[SerializeField]
 	bool checkpoint;
 	[SerializeField]
+	bool defaultWaypoint;
+	[SerializeField]
 	string waypointName;
 	[SerializeField]
 	string connectedWPScene;
@@ -25,6 +27,9 @@ public class Waypoint : MonoBehaviour
 			WaypointManager.SetIntermediate(this);
 		else
         	WaypointManager.AddWaypoint(this);
+
+		if(defaultWaypoint)
+			WaypointManager.SetDefault(this);
     }
 
 	public string GetName() {
@@ -37,8 +42,8 @@ public class Waypoint : MonoBehaviour
 			WaypointManager.SetLastCheckpoint(this);
 	}
 
-	private void OnCollisionEnter2D(Collision2D other) {
-		if(other.gameObject.tag == "player" && checkpoint) {
+	private void OnTriggerEnter2D(Collider2D other) {
+		if(other.gameObject.tag == "Player" && checkpoint) {
 			WaypointManager.SetLastCheckpoint(this);
 		}
 	}
