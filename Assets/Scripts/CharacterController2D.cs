@@ -30,14 +30,11 @@ public class CharacterController2D : MonoBehaviour
     Vector2 startSize;
     Vector2 startOffset;
 
-<<<<<<< HEAD
     Vector3 currentRGB;
     Material material;
-=======
     private GameObject[] blueBoxes;
     private GameObject[] greenBoxes;
     private GameObject[] redBoxes;
->>>>>>> 76312ee99a80eb24ad21debd336732f321d2371e
 
     bool IsGrounded() {
         /*Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0.0f, GetComponent<BoxCollider2D>().size.y / 2, 0.0f), (GetComponent<BoxCollider2D>().size.y / 2) + .2f);
@@ -124,9 +121,7 @@ public class CharacterController2D : MonoBehaviour
         }
 
         isCrouching = (Input.GetKey("s") && hasSKey);
-<<<<<<< HEAD
 
-=======
         ChangeColor();
         CheckRGBBoxes();
     }
@@ -200,7 +195,6 @@ public class CharacterController2D : MonoBehaviour
                 }
             }
         }
->>>>>>> 76312ee99a80eb24ad21debd336732f321d2371e
 
     }
 
