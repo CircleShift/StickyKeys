@@ -88,8 +88,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWaypoint: 0
-  waypointName: tele
+  waypointName: 
   teleportAll: 0
   checkpoint: 0
   goToScene: 
-  goToWaypoint: tele
+  goToWaypoint: 
