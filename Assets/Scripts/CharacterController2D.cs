@@ -33,7 +33,7 @@ public class CharacterController2D : MonoBehaviour
     Vector2 startOffset;
 
     Vector3 currentRGB;
-    Material material;
+    AnimatorPlayer animPlayer;
     private GameObject[] blueBoxes;
     private GameObject[] greenBoxes;
     private GameObject[] redBoxes;
@@ -74,7 +74,7 @@ public class CharacterController2D : MonoBehaviour
 		WaypointManager.SetPlayer(this);
 		WaypointManager.Init();
 
-        material = GetComponent<Renderer>().material;
+        animPlayer = GetComponentInChildren<AnimatorPlayer>();
     }
 
     // Update is called once per frame
@@ -82,11 +82,11 @@ public class CharacterController2D : MonoBehaviour
     {
         if (Input.GetKey("a") && hasAKey) {
             rigidBody.velocity = new Vector2(-speed, rigidBody.velocity.y);
-            GetComponentInChildren<SpriteRenderer>().flipX = false;
+            animPlayer.setFlip(false);
             anim.SetBool("isWalking", true);
         } else if (Input.GetKey("d") && hasDKey) {
             rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
-            GetComponentInChildren<SpriteRenderer>().flipX = true;
+            animPlayer.setFlip(true);
             anim.SetBool("isWalking", true);
         } else {
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
@@ -108,7 +108,7 @@ public class CharacterController2D : MonoBehaviour
 			isCrouching = false;
         }
 
-		Vector4 rgb = new Vector4(0.0f, 0.0f, 0.0f);
+		Vector4 rgb = new Vector3(0.0f, 0.0f, 0.0f);
 		
         if (isRed)
 			rgb.x = 1.0f;
@@ -117,7 +117,7 @@ public class CharacterController2D : MonoBehaviour
 		if (isBlue)
 			rgb.z = 1.0f;
 
-		material.SetVector("_RGB", rgb);
+		animPlayer.setRGB(rgb);
 
         ChangeColor();
         CheckRGBBoxes();
