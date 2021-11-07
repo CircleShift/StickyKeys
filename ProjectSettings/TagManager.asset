@@ -8,6 +8,7 @@ TagManager:
   - Red
   - Green
   - Enemy
+  - LevelTilemap
   layers:
   - Default
   - TransparentFX

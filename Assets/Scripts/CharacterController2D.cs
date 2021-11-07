@@ -42,23 +42,12 @@ public class CharacterController2D : MonoBehaviour
     public AudioClip deathSound;
 
     bool IsGrounded() {
-        /*Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0.0f, GetComponent<BoxCollider2D>().size.y / 2, 0.0f), (GetComponent<BoxCollider2D>().size.y / 2) + .2f);
-		for (int i = 0; i < colliders.Length; i++)
-		{
-			if (colliders[i].gameObject != gameObject)
-			{
-				return true;
-			}
-		}
-        return false;*/
         RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0.0f, GetComponent<Collider2D>().bounds.extents.y, 0.0f), -Vector2.up);
-        if (hit.collider != null)
-        {
+        if (hit.collider != null) {
             float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            if (distance < .5f)
-            {
+            if (distance <= 0.45f) {
                 return true;
-            }            
+            }
         }
         return false;
     }
