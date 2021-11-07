@@ -51,6 +51,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9080117552662330823, guid: 3f9ffbf80b4aea1bab9f16f82ce10ca1, type: 3}
+      propertyPath: m_Color.b
+      value: 0.10323961
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080117552662330823, guid: 3f9ffbf80b4aea1bab9f16f82ce10ca1, type: 3}
+      propertyPath: m_Color.g
+      value: 0.4504567
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080117552662330823, guid: 3f9ffbf80b4aea1bab9f16f82ce10ca1, type: 3}
+      propertyPath: m_Color.r
+      value: 0.754717
+      objectReference: {fileID: 0}
     - target: {fileID: 9080117552662330824, guid: 3f9ffbf80b4aea1bab9f16f82ce10ca1, type: 3}
       propertyPath: m_Name
       value: Telepoint

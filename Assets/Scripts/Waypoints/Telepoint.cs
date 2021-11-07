@@ -26,8 +26,10 @@ public class Telepoint : Waypoint
 				WaypointManager.GoWaypoint(other.gameObject, goToWaypoint);
 			else if (other.gameObject.tag == "Player")
 				WaypointManager.GoWaypoint(goToScene, goToWaypoint);
-		} else if (checkpoint && other.gameObject.tag == "Player")
+		} else if (checkpoint && other.gameObject.tag == "Player") {
 			WaypointManager.SetLastCheckpoint(this);
+			GetComponent<AudioSource>().Play();
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
