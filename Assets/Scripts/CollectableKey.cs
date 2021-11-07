@@ -98,7 +98,13 @@ public class CollectableKey : MonoBehaviour
                     tutorial.toggleOff(0);
                     tutorial.toggleOn(1);
                     break;
-                case "b":
+                case "r":
+                    player_controller.hasRKey = true;
+                    break;
+				case "g":
+                    player_controller.hasGKey = true;
+                    break;
+				case "b":
                     player_controller.hasBKey = true;
                     break;
             }
