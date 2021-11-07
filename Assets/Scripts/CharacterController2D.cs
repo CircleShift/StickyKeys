@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour
 {
+    //animator components
+    public Animator anim;
     // Movement keys
     public bool hasDKey;
     public bool hasAKey;
@@ -50,7 +52,11 @@ public class CharacterController2D : MonoBehaviour
         if (hit.collider != null)
         {
             float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            return (distance < .5f);
+            if (distance < .5f)
+            {
+                anim.SetBool("isJumping", false);
+                return true;
+            }            
         }
         return false;
     }
@@ -59,6 +65,8 @@ public class CharacterController2D : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+		
+		anim = GetComponentInChildren<Animator>();
 
         blueBoxes = GameObject.FindGameObjectsWithTag("Blue");
         greenBoxes = GameObject.FindGameObjectsWithTag("Green");
@@ -74,17 +82,21 @@ public class CharacterController2D : MonoBehaviour
     {
         if (Input.GetKey("a") && hasAKey) {
             rigidBody.velocity = new Vector2(-speed, rigidBody.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponentInChildren<SpriteRenderer>().flipX = false;
+            anim.SetBool("isWalking", true);
         } else if (Input.GetKey("d") && hasDKey) {
             rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponentInChildren<SpriteRenderer>().flipX = true;
+            anim.SetBool("isWalking", true);
         } else {
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+            anim.SetBool("isWalking", false);
         }
         
         if (Input.GetKey("w") && hasWKey && IsGrounded()) {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
             GetComponent<AudioSource>().Play();
+            anim.SetBool("isJumping", true);
         }
         if (Input.GetKeyDown("s") && hasSKey) {
 			transform.localScale = new Vector3(1, 0.5f, 1);
