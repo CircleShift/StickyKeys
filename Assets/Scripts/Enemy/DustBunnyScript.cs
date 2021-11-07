@@ -48,11 +48,12 @@ public class DustBunnyScript : MonoBehaviour
                 Die();
                 coll.rigidbody.AddForce(new Vector2(0, 300));
             }
+            else
+            {
+                WaypointManager.GoCheckpoint();
+            }
         }
-        else
-        {
-
-        }
+       
     }
     void Die()
     {
