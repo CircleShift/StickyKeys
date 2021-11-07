@@ -7,6 +7,8 @@ public class Waypoint : MonoBehaviour
 	[SerializeField]
 	bool teleporter;
 	[SerializeField]
+	bool teleportAll;
+	[SerializeField]
 	bool checkpoint;
 	[SerializeField]
 	bool defaultWaypoint;
@@ -17,7 +19,7 @@ public class Waypoint : MonoBehaviour
 	[SerializeField]
 	string connectedWPName;
 
-	bool teleporting;
+	int teleporting;
 
 
     // Start is called before the first frame update
@@ -33,25 +35,26 @@ public class Waypoint : MonoBehaviour
 		return waypointName;
 	}
 
-	public void GoToWaypoint(CharacterController2D c) {
-		teleporting = true;
-		c.gameObject.transform.position = this.gameObject.transform.position;
+	public void GoToWaypoint(GameObject c) {
+		teleporting += 1;
+		c.transform.position = this.gameObject.transform.position;
 		if(checkpoint)
 			WaypointManager.SetLastCheckpoint(this);
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if(other.gameObject.tag == "Player" && !teleporting){
-			if (checkpoint)
-				WaypointManager.SetLastCheckpoint(this);
-			else if (teleporter && connectedWPScene == "")
-				WaypointManager.GoWaypoint(connectedWPName);
-			else if (teleporter)
+		if(teleporter && teleporting == 0) {
+			if (teleportAll)
+				WaypointManager.GoWaypoint(other.gameObject, connectedWPName);
+			else if (other.gameObject.tag == "Player")
 				WaypointManager.GoWaypoint(connectedWPScene, connectedWPName);
-		} 
+			
+		} else if (other.gameObject.tag == "Player" && checkpoint) {
+			WaypointManager.SetLastCheckpoint(this);
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
-		teleporting = false;
+		teleporting -= 1;
 	}
 }
