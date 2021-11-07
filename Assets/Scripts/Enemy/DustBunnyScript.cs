@@ -49,10 +49,15 @@ public class DustBunnyScript : MonoBehaviour
                 coll.rigidbody.AddForce(new Vector2(0, 300));
             }
         }
+        else
+        {
+
+        }
     }
     void Die()
     {
-        //transform.localScale = Vector2.Lerp(transform.localScale, transform.localScale * 0.2f, Time.deltaTime * 1f);
+        transform.localScale = new Vector3(1, 0.5f, 1);
+        transform.position -= new Vector3(0, 0.25f, 0);
         Instantiate(DeathParticle, transform.position, Quaternion.identity);
         Destroy(this.gameObject, 0.1f);
     }

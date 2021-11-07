@@ -70,7 +70,7 @@ public class CharacterController2D : MonoBehaviour
         blueBoxes = GameObject.FindGameObjectsWithTag("Blue");
         greenBoxes = GameObject.FindGameObjectsWithTag("Green");
         redBoxes = GameObject.FindGameObjectsWithTag("Red");
-		WaypointManager.SetPlayer(this);
+		WaypointManager.SetPlayer(gameObject);
 		WaypointManager.Init();
 
         animPlayer = GetComponentInChildren<AnimatorPlayer>();
