@@ -185,7 +185,7 @@ public class CharacterController2D : MonoBehaviour
         }
         if (redBoxes != null)
         {
-            if (isBlue)
+            if (isRed)
             {
                 foreach (GameObject box in redBoxes)
                 {
