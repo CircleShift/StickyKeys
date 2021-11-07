@@ -2015,6 +2015,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 6054333135754360420, guid: 5fbd3db2c3840d4468a51a2ea22fbd4c, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4220510874106085321, guid: 30b05c33e79aeaa479538ff2d9ee5533, type: 2}
+    - target: {fileID: 6054333135797989391, guid: 5fbd3db2c3840d4468a51a2ea22fbd4c, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4220510874106085321, guid: 30b05c33e79aeaa479538ff2d9ee5533, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fbd3db2c3840d4468a51a2ea22fbd4c, type: 3}
 --- !u!1001 &805547004
