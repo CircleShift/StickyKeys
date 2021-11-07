@@ -65,7 +65,7 @@ public class CharacterController2D : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-		
+
 		anim = GetComponentInChildren<Animator>();
 
         blueBoxes = GameObject.FindGameObjectsWithTag("Blue");
@@ -103,8 +103,8 @@ public class CharacterController2D : MonoBehaviour
 			transform.position -= new Vector3(0, 0.25f, 0);
 			isCrouching = true;
         } else if (Input.GetKeyUp("s") && isCrouching) {
-			transform.localScale = new Vector3(1, 1, 1);
 			transform.position += new Vector3(0, 0.25f, 0);
+			transform.localScale = new Vector3(1, 1, 1);
 			isCrouching = false;
         }
 
