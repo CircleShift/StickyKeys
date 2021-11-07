@@ -98,27 +98,16 @@ public class CharacterController2D : MonoBehaviour
             GetComponent<BoxCollider2D>().offset = startOffset;
         }
 
-        if (Input.GetKeyDown("r") && hasRKey) {
-            if (material.color == new Color(1.0f, 0.0f, 0.0f)) {
-                material.color = new Color(1.0f, 1.0f, 1.0f);
-            } else {
-                material.color = new Color(1.0f, 0.0f, 0.0f);
-            }
-        }
-        if (Input.GetKeyDown("g") && hasRKey) {
-            if (material.color == new Color(0.0f, 1.0f, 0.0f)) {
-                material.color = new Color(1.0f, 1.0f, 1.0f);
-            } else {
-                material.color = new Color(0.0f, 1.0f, 0.0f);
-            }
-        }
-        if (Input.GetKeyDown("b") && hasRKey) {
-            if (material.color == new Color(0.0f, 0.0f, 1.0f)) {
-                material.color = new Color(1.0f, 1.0f, 1.0f);
-            } else {
-                material.color = new Color(0.0f, 0.0f, 1.0f);
-            }
-        }
+		Vector4 rgb = new Vector4(0.0f, 0.0f, 0.0f);
+		
+        if (isRed)
+			rgb.x = 1.0f;
+		if (isGreen)
+			rgb.y = 1.0f;
+		if (isBlue)
+			rgb.z = 1.0f;
+
+		material.SetVector("_RGB", rgb);
 
         isCrouching = (Input.GetKey("s") && hasSKey);
 
