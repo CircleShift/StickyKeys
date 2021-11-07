@@ -54,7 +54,6 @@ public class CharacterController2D : MonoBehaviour
             float distance = Mathf.Abs(hit.point.y - transform.position.y);
             if (distance < .5f)
             {
-                anim.SetBool("isJumping", false);
                 return true;
             }            
         }
@@ -80,24 +79,37 @@ public class CharacterController2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsGrounded())
+        {
+            anim.SetBool("isJumping", false);
+        }
+        else
+        {
+            anim.SetBool("isWalking", true);
+            anim.SetBool("isJumping", true);
+        }
         if (Input.GetKey("a") && hasAKey) {
             rigidBody.velocity = new Vector2(-speed, rigidBody.velocity.y);
             GetComponentInChildren<SpriteRenderer>().flipX = false;
-            anim.SetBool("isWalking", true);
+            if (IsGrounded())
+            {
+                anim.SetBool("isWalking", true);
+            }           
         } else if (Input.GetKey("d") && hasDKey) {
             rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
             GetComponentInChildren<SpriteRenderer>().flipX = true;
-            anim.SetBool("isWalking", true);
+            if (IsGrounded())
+            {
+                anim.SetBool("isWalking", true);
+            }
         } else {
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
             anim.SetBool("isWalking", false);
-        }
-        
+        }        
         if (Input.GetKey("w") && hasWKey && IsGrounded()) {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
-            GetComponent<AudioSource>().Play();
-            anim.SetBool("isJumping", true);
-        }
+            //GetComponent<AudioSource>().Play();
+        }       
         if (Input.GetKeyDown("s") && hasSKey) {
 			transform.localScale = new Vector3(1, 0.5f, 1);
 			transform.position -= new Vector3(0, 0.25f, 0);
