@@ -48,7 +48,7 @@ public class Waypoint : MonoBehaviour
 				WaypointManager.GoWaypoint(other.gameObject, connectedWPName);
 			else if (other.gameObject.tag == "Player")
 				WaypointManager.GoWaypoint(connectedWPScene, connectedWPName);
-			
+			GetComponent<AudioSource>().Play();
 		} else if (other.gameObject.tag == "Player" && checkpoint) {
 			WaypointManager.SetLastCheckpoint(this);
 		}
