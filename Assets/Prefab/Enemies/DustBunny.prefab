@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3383433205780583607}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Sight End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3383433205780583604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: -0.4, z: 0}
+  m_LocalPosition: {x: -0.807, y: -0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3383433207047811070}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3383433207047810947}
   - component: {fileID: 3383433207047810944}
   - component: {fileID: 3383433207047810945}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: DustBunny
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3383433207614201860}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Sight Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3383433207614201861}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 0.2, z: 0}
+  m_LocalPosition: {x: -0.86, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3383433207047811070}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 3383433207642894680}
   - component: {fileID: 3383433207642894682}
   - component: {fileID: 3383433207642894683}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: DustBunny_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7201796209592114203}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Weakspot
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
