@@ -38,6 +38,9 @@ public class CharacterController2D : MonoBehaviour
     private GameObject[] greenBoxes;
     private GameObject[] redBoxes;
 
+    public AudioClip jumpSound;
+    public AudioClip deathSound;
+
     bool IsGrounded() {
         /*Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0.0f, GetComponent<BoxCollider2D>().size.y / 2, 0.0f), (GetComponent<BoxCollider2D>().size.y / 2) + .2f);
 		for (int i = 0; i < colliders.Length; i++)
@@ -104,7 +107,8 @@ public class CharacterController2D : MonoBehaviour
         }        
         if (Input.GetKey("w") && hasWKey && IsGrounded()) {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
-            //GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().clip = jumpSound;
+            GetComponent<AudioSource>().Play();
         }       
         if (Input.GetKeyDown("s") && hasSKey) {
 			transform.localScale = new Vector3(1, 0.5f, 1);
@@ -151,20 +155,23 @@ public class CharacterController2D : MonoBehaviour
     {
         if (blueBoxes != null)
         {
-             if (isBlue)
-                    {
-                        foreach(GameObject box in blueBoxes)
-                        {
-                            box.GetComponent<BoxCollider2D>().enabled = false;
-                        }
+            if (isBlue)
+            {
+                foreach(GameObject box in blueBoxes)
+                {
+                    box.GetComponent<BoxCollider2D>().enabled = false;
+                }
+            }
+            else
+            {
+                foreach (GameObject box in blueBoxes)
+                {
+                    box.GetComponent<BoxCollider2D>().enabled = true;
+                    if (box.GetComponent<BoxCollider2D>().bounds.Contains(transform.position)) {
+                        GoCheckopint();
                     }
-                    else
-                    {
-                        foreach (GameObject box in blueBoxes)
-                        {
-                            box.GetComponent<BoxCollider2D>().enabled = true;
-                        }
-                    }
+                }
+            }
         }
         if (greenBoxes != null)
         {
@@ -180,6 +187,9 @@ public class CharacterController2D : MonoBehaviour
                 foreach (GameObject box in greenBoxes)
                 {
                     box.GetComponent<BoxCollider2D>().enabled = true;
+                    if (box.GetComponent<BoxCollider2D>().bounds.Contains(transform.position)) {
+                        GoCheckopint();
+                    }
                 }
             }
         }
@@ -197,6 +207,9 @@ public class CharacterController2D : MonoBehaviour
                 foreach (GameObject box in redBoxes)
                 {
                     box.GetComponent<BoxCollider2D>().enabled = true;
+                    if (box.GetComponent<BoxCollider2D>().bounds.Contains(transform.position)) {
+                        GoCheckopint();
+                    }
                 }
             }
         }
@@ -209,8 +222,10 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-    public void onDamaged() {
+    public void GoCheckopint() {
         //teleport back to the last checkpoint
         WaypointManager.GoCheckpoint();
+        GetComponent<AudioSource>().clip = deathSound;
+        GetComponent<AudioSource>().Play();
     }
 }
