@@ -26,10 +26,8 @@ public class Telepoint : Checkpoint
 				WaypointManager.GoWaypoint(other.gameObject, goToWaypoint);
 			else if (other.gameObject.tag == "Player")
 				WaypointManager.GoWaypoint(goToScene, goToWaypoint);
-			GetComponent<AudioSource>().Play();
-		} else if (checkpoint && other.gameObject.tag == "Player") {
-			WaypointManager.SetLastCheckpoint(this);
-		}
+		} else if (checkpoint) 
+			base.OnTriggerEnter2D(other);
 
 		if(teleporting > 0 && (teleportAll || other.gameObject.tag == "Player"))
 			teleporting -= 1;
