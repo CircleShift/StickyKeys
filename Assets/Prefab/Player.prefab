@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7584073179609026705}
   - component: {fileID: 7584073179609026704}
   - component: {fileID: 7584073179609026711}
-  - component: {fileID: 7584073179609026710}
+  - component: {fileID: 6683101054661456926}
   - component: {fileID: 7584073179609026709}
   m_Layer: 0
   m_Name: Player
@@ -226,8 +226,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &7584073179609026710
-BoxCollider2D:
+--- !u!60 &6683101054661456926
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -235,11 +235,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 7584073179609026708}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: bc8c6ae6861d97749a49530b705aa4cd, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00554052, y: 0.00923425}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -249,9 +249,24 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.91504544, y: 0.85594654}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.43997306, y: 0.20534915}
+      - {x: -0.45632493, y: 0.17463402}
+      - {x: -0.4551336, y: -0.36504453}
+      - {x: -0.44215012, y: -0.3980502}
+      - {x: -0.41513363, y: -0.4125668}
+      - {x: 0.4052227, y: -0.41504452}
+      - {x: 0.44373345, y: -0.39742124}
+      - {x: 0.4600891, y: -0.3675223}
+      - {x: 0.46020198, y: 0.39500505}
+      - {x: 0.44430536, y: 0.42174405}
+      - {x: 0.41548997, y: 0.4400891}
+      - {x: 0.02783319, y: 0.44427973}
+      - {x: -0.008753389, y: 0.411403}
+      - {x: -0.019482113, y: 0.3855791}
+      - {x: -0.027138129, y: 0.23153757}
+      - {x: -0.39566815, y: 0.2189477}
 --- !u!114 &7584073179609026709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +282,7 @@ MonoBehaviour:
   hasDKey: 0
   hasAKey: 0
   hasWKey: 0
-  hasSKey: 0
+  hasSKey: 1
   hasSpacebar: 0
   hasRKey: 0
   hasGKey: 0

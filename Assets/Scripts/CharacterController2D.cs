@@ -46,7 +46,7 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
         return false;*/
-        RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0.0f, GetComponent<BoxCollider2D>().size.y / 2, 0.0f), -Vector2.up);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0.0f, GetComponent<Collider2D>().bounds.extents.y, 0.0f), -Vector2.up);
         if (hit.collider != null)
         {
             float distance = Mathf.Abs(hit.point.y - transform.position.y);
@@ -59,8 +59,6 @@ public class CharacterController2D : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        startSize = GetComponent<BoxCollider2D>().size;
-        startOffset = GetComponent<BoxCollider2D>().offset;
 
         blueBoxes = GameObject.FindGameObjectsWithTag("Blue");
         greenBoxes = GameObject.FindGameObjectsWithTag("Green");
@@ -88,14 +86,14 @@ public class CharacterController2D : MonoBehaviour
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
             GetComponent<AudioSource>().Play();
         }
-        if (Input.GetKey("s") && hasSKey) {
-            GetComponent<SpriteRenderer>().size = new Vector2(1.0f, 0.5f);
-            GetComponent<BoxCollider2D>().size = startSize * new Vector2(1.0f, 0.5f);
-            GetComponent<BoxCollider2D>().offset = startOffset - new Vector2(0.0f, startSize.y * 0.25f);
-        } else {
-            GetComponent<SpriteRenderer>().size = new Vector2(1.0f, 1.0f);
-            GetComponent<BoxCollider2D>().size = startSize;
-            GetComponent<BoxCollider2D>().offset = startOffset;
+        if (Input.GetKeyDown("s") && hasSKey) {
+			transform.localScale = new Vector3(1, 0.5f, 1);
+			transform.position -= new Vector3(0, 0.25f, 0);
+			isCrouching = true;
+        } else if (Input.GetKeyUp("s") && isCrouching) {
+			transform.localScale = new Vector3(1, 1, 1);
+			transform.position += new Vector3(0, 0.25f, 0);
+			isCrouching = false;
         }
 
 		Vector4 rgb = new Vector4(0.0f, 0.0f, 0.0f);
@@ -108,8 +106,6 @@ public class CharacterController2D : MonoBehaviour
 			rgb.z = 1.0f;
 
 		material.SetVector("_RGB", rgb);
-
-        isCrouching = (Input.GetKey("s") && hasSKey);
 
         ChangeColor();
         CheckRGBBoxes();
