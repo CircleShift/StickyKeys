@@ -46,6 +46,7 @@ public class DustBunnyScript : MonoBehaviour
             if (height > 0)
             {
                 Die();
+                GetComponent<AudioSource>().Play();
                 coll.rigidbody.AddForce(new Vector2(0, 300));
             }
             else
