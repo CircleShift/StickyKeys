@@ -13,7 +13,7 @@ public class CollectableKey : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tutorial = GameObject.Find("Canvas").GetComponent<TutorialController>();
+        tutorial = GameObject.Find("Tutorial").GetComponent<TutorialController>();
         startY = transform.position.y;
         transform.GetChild(0).localScale = new Vector3(0.0f, 0.0f, 0.0f);
         isFade = false;
@@ -89,6 +89,7 @@ public class CollectableKey : MonoBehaviour
                 case "a":
                     player_controller.hasAKey = true;
                     tutorial.toggleOff(2);
+                    tutorial.showTemporary(3, 5.0f);
                     break;
                 case "s":
                     player_controller.hasSKey = true;
@@ -106,6 +107,7 @@ public class CollectableKey : MonoBehaviour
                     break;
 				case "b":
                     player_controller.hasBKey = true;
+                    tutorial.showTemporary(4, 5.0f);
                     break;
             }
             Destroy(this.GetComponent<BoxCollider2D>());

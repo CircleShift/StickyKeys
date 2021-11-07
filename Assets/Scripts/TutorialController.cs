@@ -31,7 +31,13 @@ public class TutorialController : MonoBehaviour
     }
 
     public void showTemporary(int index, float time) {
-        StartCoroutine(FadeInAndOut(1f, 2f, transform.GetChild(index).gameObject.GetComponent<Text>()));
+        StartCoroutine(inAndOut(index, time));
+    }
+
+    public IEnumerator inAndOut(int index, float time) {
+        transform.GetChild(index).gameObject.SetActive(true);
+        yield return new WaitForSeconds(time);
+        transform.GetChild(index).gameObject.SetActive(false);
     }
 
     public IEnumerator FadeInAndOut(float t1, float t2, Text i) {
