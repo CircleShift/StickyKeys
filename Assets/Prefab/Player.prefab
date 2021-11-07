@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad80dd670a645347a584b26b20ceb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasDKey: 1
-  hasAKey: 1
+  hasDKey: 0
+  hasAKey: 0
   hasWKey: 0
   hasSKey: 0
   hasSpacebar: 0
@@ -273,5 +273,8 @@ MonoBehaviour:
   hasGKey: 0
   hasBKey: 0
   hasMKey: 0
+  isBlue: 0
+  isGreen: 0
+  isRed: 0
   jumpForce: 10
   speed: 10

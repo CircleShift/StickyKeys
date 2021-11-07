@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 293202192}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -477,6 +477,9 @@ MonoBehaviour:
   hasGKey: 1
   hasBKey: 1
   hasMKey: 0
+  isBlue: 0
+  isGreen: 0
+  isRed: 0
   jumpForce: 10
   speed: 10
 --- !u!61 &293202190

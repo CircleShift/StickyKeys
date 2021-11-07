@@ -80,7 +80,7 @@ public class CollectableKey : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D other) {
-        if (enterPressed && other.name == "player") {
+        if (enterPressed && other.tag == "Player") {
             CharacterController2D player_controller = other.gameObject.GetComponent<CharacterController2D>();
             switch (KeyName) {
                 case "w":
