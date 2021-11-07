@@ -33,6 +33,7 @@ public class Telepoint : Waypoint
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
-		teleporting -= 1;
+		if(teleporting > 0)
+			teleporting -= 1;
 	}
 }
