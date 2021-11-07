@@ -45,21 +45,11 @@ public class CharacterController2D : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0.0f, GetComponent<Collider2D>().bounds.extents.y, 0.0f), -Vector2.up);
         if (hit.collider != null) {
             float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            if ((hit.collider.gameObject.tag == "Red" || hit.collider.gameObject.tag == "Green" 
-                || hit.collider.gameObject.tag == "Blue" || hit.collider.gameObject.tag == "LevelTilemap") && distance < .5f) {
+            if (distance <= 0.45f) {
                 return true;
             }
         }
         return false;
-        /*if (hit.collider != null)
-        {
-            float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            if (distance < .5f)
-            {
-                return true;
-            }            
-        }
-        return false;*/
     }
 
     // Start is called before the first frame update
