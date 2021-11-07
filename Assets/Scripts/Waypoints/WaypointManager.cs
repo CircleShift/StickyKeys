@@ -8,7 +8,7 @@ public static class WaypointManager {
 	private static Waypoint lastCheckpoint = null;
 	private static Waypoint defaultWaypoint = null;
 
-	private static CharacterController2D player = null;
+	private static GameObject player = null;
 
 	private static string goingWP = "";
 
@@ -78,7 +78,7 @@ public static class WaypointManager {
 		defaultWaypoint = w;
 	}
 
-	public static void SetPlayer(CharacterController2D c) {
+	public static void SetPlayer(GameObject c) {
 		player = c;
 	}
 
@@ -102,8 +102,8 @@ public static class WaypointManager {
 		name - name of the waypoint
 	*/
 	public static void GoWaypoint(string scene, string name) {
-		if(SceneManager.GetActiveScene().name == scene || scene == "")
-			GoWaypoint(name);
+		if(SceneManager.GetActiveScene().name == scene || scene == "" || scene == null)
+			GoWaypoint(player, name);
 		else {
 			goingWP = name;
 			SceneManager.LoadScene(scene, LoadSceneMode.Single);
@@ -114,9 +114,16 @@ public static class WaypointManager {
 		name - name of the waypoint
 	*/
 	public static bool GoWaypoint(string name) {
+		return GoWaypoint(player, name);
+	}
+
+	/** Send any game object to a waypoint (by name)
+		name - name of the waypoint
+	*/
+	public static bool GoWaypoint(GameObject obj, string name) {
 		Waypoint going = GetWaypoint(name);
 		if(going != null) {
-			going.GoToWaypoint(player);
+			going.GoToWaypoint(obj);
 			return true;
 		}
 		return false;
