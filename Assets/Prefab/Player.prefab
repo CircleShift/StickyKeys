@@ -267,7 +267,7 @@ MonoBehaviour:
   hasDKey: 0
   hasAKey: 0
   hasWKey: 0
-  hasSKey: 1
+  hasSKey: 0
   hasSpacebar: 0
   hasRKey: 0
   hasGKey: 0
