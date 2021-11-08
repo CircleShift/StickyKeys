@@ -43,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackgroundImage
+    uniqueID: 949213725
+    locked: 0
   - name: RGBBoxes
     uniqueID: 1769696625
     locked: 0

@@ -153,8 +153,10 @@ public class CharacterController2D : MonoBehaviour
             }
             else
             {
+                Debug.Log("player: " + transform.position);
                 foreach (GameObject box in blueBoxes)
                 {
+                    Debug.Log("box: " + box.GetComponent<BoxCollider2D>().bounds);
                     box.GetComponent<BoxCollider2D>().enabled = true;
                     if (box.GetComponent<BoxCollider2D>().bounds.Contains(transform.position)) {
                         GoCheckopint();
