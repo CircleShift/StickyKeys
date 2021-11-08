@@ -38,7 +38,7 @@ public class CharacterController2D : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip deathSound;
 
-	public int groundMask = 1 << 8 | 1 << 9 | 1 << 10 | 1 << 11;
+	private int groundMask = 1 << 8 | 1 << 9 | 1 << 10 | 1 << 11;
 
     bool IsGrounded() {
         RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0.0f, GetComponent<Collider2D>().bounds.extents.y, 0.0f), -Vector2.up, 0.45f, groundMask);

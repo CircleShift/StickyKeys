@@ -1218,8 +1218,12 @@ PrefabInstance:
       value: Telepoint (10)
       objectReference: {fileID: 0}
     - target: {fileID: 3815572828553535597, guid: 113622dbfa696a9b5a969027470e2eed, type: 3}
+      propertyPath: goToScene
+      value: EndScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815572828553535597, guid: 113622dbfa696a9b5a969027470e2eed, type: 3}
       propertyPath: goToWaypoint
-      value: start
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 113622dbfa696a9b5a969027470e2eed, type: 3}
