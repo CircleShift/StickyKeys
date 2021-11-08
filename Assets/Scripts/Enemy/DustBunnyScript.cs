@@ -27,7 +27,7 @@ public class DustBunnyScript : MonoBehaviour
     void Update()
     {
 
-        rb.velocity = new Vector2(Xvelocity, 0);
+        rb.velocity = new Vector2(Xvelocity, rb.velocity.y);
 
         colliding = Physics2D.Linecast(sightStart.position, sightEnd.position, detectWhat);
 
@@ -51,7 +51,7 @@ public class DustBunnyScript : MonoBehaviour
             }
             else
             {
-                WaypointManager.GoCheckpoint();
+                coll.gameObject.GetComponent<CharacterController2D>().GoCheckpoint();
             }
         }
        

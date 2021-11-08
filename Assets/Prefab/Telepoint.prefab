@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Telepoint
       objectReference: {fileID: 0}
+    - target: {fileID: 9080117552662330824, guid: 3f9ffbf80b4aea1bab9f16f82ce10ca1, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6400562045457843467, guid: 3f9ffbf80b4aea1bab9f16f82ce10ca1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3f9ffbf80b4aea1bab9f16f82ce10ca1, type: 3}

@@ -150,7 +150,7 @@ MonoBehaviour:
   sightEnd: {fileID: 3383433205780583607}
   detectWhat:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 1857
   weakspot: {fileID: 7201796209592114203}
   DeathParticle: {fileID: 8239642385411371119, guid: 77fdd77af915b3a4583157054138c834, type: 3}
   colliding: 0

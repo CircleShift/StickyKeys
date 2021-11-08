@@ -20,9 +20,9 @@ public class CharacterController2D : MonoBehaviour
     // Map key
     public bool hasMKey;
 
-    public bool isBlue;
-    public bool isGreen;
-    public bool isRed;
+    public bool isBlue = false;
+    public bool isGreen = false;
+    public bool isRed = false;
 
     public float jumpForce = 10.0f;
     public float speed = 5.0f;
@@ -34,21 +34,16 @@ public class CharacterController2D : MonoBehaviour
 
     Vector3 currentRGB;
     AnimatorPlayer animPlayer;
-    private GameObject[] blueBoxes;
-    private GameObject[] greenBoxes;
-    private GameObject[] redBoxes;
 
     public AudioClip jumpSound;
     public AudioClip deathSound;
 
+	public int groundMask = 1 << 8 | 1 << 9 | 1 << 10 | 1 << 11;
+
     bool IsGrounded() {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0.0f, GetComponent<Collider2D>().bounds.extents.y, 0.0f), -Vector2.up);
-        if (hit.collider != null) {
-            float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            if (distance <= 0.45f) {
-                return true;
-            }
-        }
+        RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0.0f, GetComponent<Collider2D>().bounds.extents.y, 0.0f), -Vector2.up, 0.45f, groundMask);
+        if (hit.collider != null)
+            return true;
         return false;
     }
 
@@ -59,9 +54,6 @@ public class CharacterController2D : MonoBehaviour
 
 		anim = GetComponentInChildren<Animator>();
 
-        blueBoxes = GameObject.FindGameObjectsWithTag("Blue");
-        greenBoxes = GameObject.FindGameObjectsWithTag("Green");
-        redBoxes = GameObject.FindGameObjectsWithTag("Red");
 		WaypointManager.SetPlayer(gameObject);
 		WaypointManager.Init();
 
@@ -121,7 +113,6 @@ public class CharacterController2D : MonoBehaviour
 		animPlayer.setRGB(rgb);
 
         ChangeColor();
-        CheckRGBBoxes();
     }
 
     public void ChangeColor()
@@ -129,89 +120,24 @@ public class CharacterController2D : MonoBehaviour
         if (hasBKey && Input.GetKeyDown(KeyCode.B))
         {
             isBlue = !isBlue;
+			groundMask = groundMask ^ 1 << 10;
+			Physics2D.IgnoreLayerCollision(10, 3, isBlue);
         }
         if (hasGKey && Input.GetKeyDown(KeyCode.G))
         {
-            isGreen = !isGreen;
+			isGreen = !isGreen;
+			groundMask = groundMask ^ 1 << 9;
+            Physics2D.IgnoreLayerCollision(9, 3, isGreen);
         }
         if (hasRKey && Input.GetKeyDown(KeyCode.R))
         {
-            isRed = !isRed;
+			isRed = !isRed;
+			groundMask = groundMask ^ 1 << 8;
+            Physics2D.IgnoreLayerCollision(8, 3, isRed);
         }
     }
 
-    private void CheckRGBBoxes()
-    {
-        if (blueBoxes != null)
-        {
-            if (isBlue)
-            {
-                foreach(GameObject box in blueBoxes)
-                {
-                    box.GetComponent<BoxCollider2D>().enabled = false;
-                }
-            }
-            else
-            {
-                foreach (GameObject box in blueBoxes)
-                {
-                    box.GetComponent<BoxCollider2D>().enabled = true;
-                    if (box.GetComponent<BoxCollider2D>().bounds.Contains(transform.position)) {
-                        GoCheckopint();
-                    }
-                }
-            }
-        }
-        if (greenBoxes != null)
-        {
-            if (isGreen)
-            {
-                foreach (GameObject box in greenBoxes)
-                {
-                    box.GetComponent<BoxCollider2D>().enabled = false;
-                }
-            }
-            else
-            {
-                foreach (GameObject box in greenBoxes)
-                {
-                    box.GetComponent<BoxCollider2D>().enabled = true;
-                    if (box.GetComponent<BoxCollider2D>().bounds.Contains(transform.position)) {
-                        GoCheckopint();
-                    }
-                }
-            }
-        }
-        if (redBoxes != null)
-        {
-            if (isRed)
-            {
-                foreach (GameObject box in redBoxes)
-                {
-                    box.GetComponent<BoxCollider2D>().enabled = false;
-                }
-            }
-            else
-            {
-                foreach (GameObject box in redBoxes)
-                {
-                    box.GetComponent<BoxCollider2D>().enabled = true;
-                    if (box.GetComponent<BoxCollider2D>().bounds.Contains(transform.position)) {
-                        GoCheckopint();
-                    }
-                }
-            }
-        }
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.GetComponent<CollectableKey>() != null) {
-            Debug.Log("Key");
-        }
-    }
-
-    public void GoCheckopint() {
+    public void GoCheckpoint() {
         //teleport back to the last checkpoint
         WaypointManager.GoCheckpoint();
         GetComponent<AudioSource>().clip = deathSound;
