@@ -279,7 +279,7 @@ MonoBehaviour:
   jumpForce: 10
   speed: 10
   jumpSound: {fileID: 8300000, guid: 8bf35de8f4fd3514db94b85e7377a23d, type: 3}
-  deathSound: {fileID: 8300000, guid: 4e9dd1043fb37c84c8d01b4e97a4c52b, type: 3}
+  deathSound: {fileID: 8300000, guid: b80fff307ea81e545bc06af5665f0364, type: 3}
 --- !u!82 &2999721153082116861
 AudioSource:
   m_ObjectHideFlags: 0
